@@ -9,22 +9,22 @@ using TallerMVC1.Models;
 
 namespace TallerMVC1.Controllers
 {
-    public class JugadorController : Controller
+    public class EquiposController : Controller
     {
         private readonly EquiposLigaProEcuadorContext _context;
 
-        public JugadorController(EquiposLigaProEcuadorContext context)
+        public EquiposController(EquiposLigaProEcuadorContext context)
         {
             _context = context;
         }
 
-        // GET: Jugador
+        // GET: Equipos
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Jugador.ToListAsync());
+            return View(await _context.Equipos.ToListAsync());
         }
 
-        // GET: Jugador/Details/5
+        // GET: Equipos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -32,40 +32,40 @@ namespace TallerMVC1.Controllers
                 return NotFound();
             }
 
-            var jugador = await _context.Jugador
+            var equipos = await _context.Equipos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (jugador == null)
+            if (equipos == null)
             {
                 return NotFound();
             }
 
-            return View(jugador);
+            return View(equipos);
         }
 
-        // GET: Jugador/Create
+        // GET: Equipos/Create
         public IActionResult Create()
         {
-            ViewData["idEquipo"] = new SelectList(_context.Equipos, "id", "Nombre");
+            ViewData["idEstadio"] = new SelectList(_context.Estadios, "Id", "Nombre");
             return View();
         }
 
-        // POST: Jugador/Create
+        // POST: Equipos/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Posicion,Edad,idEquipo")] Jugador jugador)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros,idEstadio")] Equipos equipos)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(jugador);
+                _context.Add(equipos);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(jugador);
+            return View(equipos);
         }
 
-        // GET: Jugador/Edit/5
+        // GET: Equipos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace TallerMVC1.Controllers
                 return NotFound();
             }
 
-            var jugador = await _context.Jugador.FindAsync(id);
-            if (jugador == null)
+            var equipos = await _context.Equipos.FindAsync(id);
+            if (equipos == null)
             {
                 return NotFound();
             }
-            return View(jugador);
+            return View(equipos);
         }
 
-        // POST: Jugador/Edit/5
+        // POST: Equipos/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Posicion,Edad,idEquipo")] Jugador jugador)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Ciudad,Titulos,AceptaExtranjeros,idEstadio")] Equipos equipos)
         {
-            if (id != jugador.Id)
+            if (id != equipos.Id)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace TallerMVC1.Controllers
             {
                 try
                 {
-                    _context.Update(jugador);
+                    _context.Update(equipos);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JugadorExists(jugador.Id))
+                    if (!EquiposExists(equipos.Id))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace TallerMVC1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(jugador);
+            return View(equipos);
         }
 
-        // GET: Jugador/Delete/5
+        // GET: Equipos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,34 +124,34 @@ namespace TallerMVC1.Controllers
                 return NotFound();
             }
 
-            var jugador = await _context.Jugador
+            var equipos = await _context.Equipos
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (jugador == null)
+            if (equipos == null)
             {
                 return NotFound();
             }
 
-            return View(jugador);
+            return View(equipos);
         }
 
-        // POST: Jugador/Delete/5
+        // POST: Equipos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var jugador = await _context.Jugador.FindAsync(id);
-            if (jugador != null)
+            var equipos = await _context.Equipos.FindAsync(id);
+            if (equipos != null)
             {
-                _context.Jugador.Remove(jugador);
+                _context.Equipos.Remove(equipos);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool JugadorExists(int id)
+        private bool EquiposExists(int id)
         {
-            return _context.Jugador.Any(e => e.Id == id);
+            return _context.Equipos.Any(e => e.Id == id);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace TallerMVC1.Models{
         public string Posicion { get; set; }
         [Required]
         public int Edad { get; set; }
-        public Equipos Equipo { get; set; }
+        public Equipos? Equipo { get; set; }
         [ForeignKey("Equipos")]
         public int idEquipo { get; set; }
     }
