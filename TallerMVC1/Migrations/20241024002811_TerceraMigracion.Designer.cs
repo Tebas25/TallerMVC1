@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TallerMVC1.Migrations
 {
     [DbContext(typeof(EquiposLigaProEcuadorContext))]
-    partial class EquiposLigaProEcuadorContextModelSnapshot : ModelSnapshot
+    [Migration("20241024002811_TerceraMigracion")]
+    partial class TerceraMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,8 +39,9 @@ namespace TallerMVC1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EstadioId")
-                        .HasColumnType("int");
+                    b.Property<string>("Estadio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -51,8 +55,6 @@ namespace TallerMVC1.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EstadioId");
 
                     b.ToTable("Equipos");
                 });
@@ -111,17 +113,6 @@ namespace TallerMVC1.Migrations
                     b.HasIndex("Equipos");
 
                     b.ToTable("Jugador");
-                });
-
-            modelBuilder.Entity("TallerMVC1.Models.Equipos", b =>
-                {
-                    b.HasOne("TallerMVC1.Models.Estadios", "Estadio")
-                        .WithMany()
-                        .HasForeignKey("EstadioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Estadio");
                 });
 
             modelBuilder.Entity("TallerMVC1.Models.Jugador", b =>

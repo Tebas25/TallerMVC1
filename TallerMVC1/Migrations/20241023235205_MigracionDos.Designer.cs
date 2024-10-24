@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TallerMVC1.Migrations
 {
     [DbContext(typeof(EquiposLigaProEcuadorContext))]
-    partial class EquiposLigaProEcuadorContextModelSnapshot : ModelSnapshot
+    [Migration("20241023235205_MigracionDos")]
+    partial class MigracionDos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace TallerMVC1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EstadioId")
+                    b.Property<int?>("EstadioId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -92,7 +95,7 @@ namespace TallerMVC1.Migrations
                     b.Property<int>("Edad")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Equipos")
+                    b.Property<int?>("EquipoId")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -108,7 +111,7 @@ namespace TallerMVC1.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Equipos");
+                    b.HasIndex("EquipoId");
 
                     b.ToTable("Jugador");
                 });
@@ -117,9 +120,7 @@ namespace TallerMVC1.Migrations
                 {
                     b.HasOne("TallerMVC1.Models.Estadios", "Estadio")
                         .WithMany()
-                        .HasForeignKey("EstadioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("EstadioId");
 
                     b.Navigation("Estadio");
                 });
@@ -128,7 +129,7 @@ namespace TallerMVC1.Migrations
                 {
                     b.HasOne("TallerMVC1.Models.Equipos", "Equipo")
                         .WithMany()
-                        .HasForeignKey("Equipos");
+                        .HasForeignKey("EquipoId");
 
                     b.Navigation("Equipo");
                 });

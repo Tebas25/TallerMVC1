@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace TallerMVC1.Migrations
 {
     [DbContext(typeof(EquiposLigaProEcuadorContext))]
-    partial class EquiposLigaProEcuadorContextModelSnapshot : ModelSnapshot
+    [Migration("20241024001400_SegundaMigracion")]
+    partial class SegundaMigracion
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,7 +39,7 @@ namespace TallerMVC1.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("EstadioId")
+                    b.Property<int?>("Estadios")
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")
@@ -52,7 +55,7 @@ namespace TallerMVC1.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstadioId");
+                    b.HasIndex("Estadios");
 
                     b.ToTable("Equipos");
                 });
@@ -117,9 +120,7 @@ namespace TallerMVC1.Migrations
                 {
                     b.HasOne("TallerMVC1.Models.Estadios", "Estadio")
                         .WithMany()
-                        .HasForeignKey("EstadioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Estadios");
 
                     b.Navigation("Estadio");
                 });

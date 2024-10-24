@@ -12,6 +12,5 @@ namespace TallerMVC1.Models{
         [Required]
         [AllowNull]
         public int capacidad { get; set; }
-
     }
 }

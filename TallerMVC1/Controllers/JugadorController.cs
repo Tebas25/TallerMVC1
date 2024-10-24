@@ -45,7 +45,7 @@ namespace TallerMVC1.Controllers
         // GET: Jugador/Create
         public IActionResult Create()
         {
-            ViewData["idEquipo"] = new SelectList(_context.Equipos, "id", "Nombre");
+            ViewData["idEquipo"] = new SelectList(_context.Equipos, "Id", "Nombre");
             return View();
         }
 
@@ -54,7 +54,7 @@ namespace TallerMVC1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Posicion,Edad,idEquipo")] Jugador jugador)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,Posicion,Edad,Equipo")] Jugador jugador)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TallerMVC1.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Posicion,Edad,idEquipo")] Jugador jugador)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Posicion,Edad,Equipo")] Jugador jugador)
         {
             if (id != jugador.Id)
             {

@@ -14,7 +14,7 @@ namespace TallerMVC1.Models{
         public int Titulos { get; set; }
         [Required]
         public bool AceptaExtranjeros {  get; set; }
-        public Estadios Estadio {  get; set; }
+        public Estadios Estadio { get; set; }
         [ForeignKey("Estadios")]
         public int idEstadio { get; set; }
     }
